@@ -1,0 +1,52 @@
+<button class="back-btn" type="button" (click)="goBack()">
+  <mat-icon>arrow_back</mat-icon>
+</button>
+<form [formGroup]="signupForm" (ngSubmit)="onSubmit()" class="signup-form">
+
+  <h2>Inscription</h2>
+
+  <label>
+    Nom d'utilisateur
+    <input type="text" formControlName="username" />
+    <div *ngIf="submitted && signupForm.controls['username'].errors">
+      <small *ngIf="signupForm.controls['username'].errors['required']">
+        Nom d'utilisateur requis
+      </small>
+      <small *ngIf="signupForm.controls['username'].errors['minlength']">
+        Minimum 3 caractères
+      </small>
+    </div>
+  </label>
+
+  <label>
+    Email
+    <input type="email" formControlName="email" />
+    <div *ngIf="submitted && signupForm.controls['email'].errors">
+      <small *ngIf="signupForm.controls['email'].errors['required']">
+        Email requis
+      </small>
+      <small *ngIf="signupForm.controls['email'].errors['email']">
+        Email invalide
+      </small>
+    </div>
+  </label>
+
+
+  <label>
+    Mot de passe
+    <input type="password" formControlName="password" />
+    <div *ngIf="submitted && signupForm.controls['password'].errors">
+      <small *ngIf="signupForm.controls['password'].errors['required']">
+        Mot de passe requis
+      </small>
+      <small *ngIf="signupForm.controls['password'].errors['minlength']">
+        Minimum 6 caractères
+      </small>
+    </div>
+  </label>
+
+  <p class="error" *ngIf="error">{{ error }}</p>
+
+  <button type="submit">S’inscrire</button>
+
+</form>

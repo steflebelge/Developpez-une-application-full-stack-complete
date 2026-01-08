@@ -4,4 +4,17 @@
   justify-content: center;
   align-items: center;
   flex-direction: column;
+
+  div{
+    display: flex;
+    gap: 10rem;
+
+    button{
+      box-shadow: none;
+      background: none;
+      border: 1px solid black;
+      color: black;
+      border-radius: 10px;
+    }
+  }
 }

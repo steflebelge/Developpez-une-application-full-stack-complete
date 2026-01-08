@@ -1,0 +1,38 @@
+<button class="back-btn" type="button" (click)="goBack()">
+  <mat-icon>arrow_back</mat-icon>
+</button>
+<form [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="login-form">
+
+  <h2>Se connecter</h2>
+
+  <label>
+    Email ou nom d'utilisateur
+    <input type="text" formControlName="username" />
+    <div *ngIf="submitted && loginForm.controls['username'].errors">
+      <small *ngIf="loginForm.controls['username'].errors['required']">
+        Nom d'utilisateur requis
+      </small>
+      <small *ngIf="loginForm.controls['username'].errors['minlength']">
+        Minimum 3 caractères
+      </small>
+    </div>
+  </label>
+
+  <label>
+    Mot de passe
+    <input type="password" formControlName="password" />
+    <div *ngIf="submitted && loginForm.controls['password'].errors">
+      <small *ngIf="loginForm.controls['password'].errors['required']">
+        Mot de passe requis
+      </small>
+      <small *ngIf="loginForm.controls['password'].errors['minlength']">
+        Minimum 6 caractères
+      </small>
+    </div>
+  </label>
+
+  <p class="error" *ngIf="error">{{ error }}</p>
+
+  <button type="submit">Se connecter</button>
+
+</form>

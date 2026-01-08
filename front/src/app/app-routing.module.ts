@@ -1,13 +1,37 @@
-import { NgModule } from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
-import { HomeComponent } from './pages/home/home.component';
+import {NgModule} from '@angular/core';
+import {RouterModule, Routes} from '@angular/router';
+import {HomeComponent} from './pages/home/home.component';
+import {LoginComponent} from "./pages/login/login.component";
+import {GuestGuard} from "./guards/guest.guard";
+import {SignupComponent} from "./pages/signup/signup.component";
+import {AuthGuard} from "./guards/auth.guard";
+import {NotFoundComponent} from "./pages/not-found/not-found.component";
+import {ArticlesComponent} from "./pages/articles/articles.component";
 
-// consider a guard combined with canLoad / canActivate route option
-// to manage unauthenticated user to access private routes
-const routes: Routes = [{ path: '', component: HomeComponent }];
+const routes: Routes = [
+  // routes publiques
+  { path: '', component: HomeComponent },
+  { path: 'login', component: LoginComponent, canActivate: [GuestGuard] },
+  { path: 'signup', component: SignupComponent, canActivate: [GuestGuard] },
+
+  // routes privées
+  {
+    path: 'app',
+    canActivate: [AuthGuard],
+    children: [
+      { path: 'articles', component: ArticlesComponent },
+      // { path: 'profile', component: ProfileComponent }
+    ]
+  },
+
+  // page 404
+  { path: '**', component: NotFoundComponent }
+];
+
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule],
 })
-export class AppRoutingModule {}
+export class AppRoutingModule {
+}
