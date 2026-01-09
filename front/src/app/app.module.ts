@@ -14,9 +14,17 @@ import { ArticlesComponent } from './pages/articles/articles.component';
 import { HeaderComponent } from './components/header/header.component';
 import {ReactiveFormsModule} from "@angular/forms";
 import {MatIconModule} from "@angular/material/icon";
+import {AccountComponent} from "./pages/account/account.component";
 
 @NgModule({
-  declarations: [AppComponent, HomeComponent, LoginComponent, SignupComponent, NotFoundComponent, ArticlesComponent, HeaderComponent],
+  declarations: [AppComponent,
+    HomeComponent,
+    LoginComponent,
+    SignupComponent,
+    NotFoundComponent,
+    ArticlesComponent,
+    HeaderComponent,
+    AccountComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,

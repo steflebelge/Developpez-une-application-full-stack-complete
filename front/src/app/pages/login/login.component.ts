@@ -27,8 +27,8 @@ export class LoginComponent implements OnInit {
 
   ngOnInit(): void {
     this.loginForm = this.fb.group({
-      login: ['', [Validators.required, Validators.minLength(3)]],
-      password: ['', [Validators.required, Validators.minLength(6)]]
+      login: ['azertyuiop', [Validators.required, Validators.minLength(3)]],
+      password: ['azertyuiop', [Validators.required, Validators.minLength(6)]]
     });
   }
 
@@ -37,7 +37,6 @@ export class LoginComponent implements OnInit {
   }
 
   onSubmit(): void {
-
     this.submitted = true;
     if (this.loginForm.invalid) return;
 

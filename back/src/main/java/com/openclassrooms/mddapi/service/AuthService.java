@@ -2,7 +2,9 @@ package com.openclassrooms.mddapi.service;
 
 import com.openclassrooms.mddapi.dto.LoginRequestDto;
 import com.openclassrooms.mddapi.dto.SignupRequestDto;
+import com.openclassrooms.mddapi.dto.UserDto;
 import com.openclassrooms.mddapi.entity.UserEntity;
+import com.openclassrooms.mddapi.mapper.UserMapper;
 import com.openclassrooms.mddapi.repository.UserRepository;
 import org.springframework.data.crossstore.ChangeSetPersister;
 import org.springframework.http.HttpStatus;
@@ -11,19 +13,23 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.util.Optional;
+
 @Service
 public class AuthService {
 
     private final UserRepository userRepository;
     private final JwtService jwtService;
     private final PasswordEncoder passwordEncoder;
+    private final UserMapper userMapper;
 
     public AuthService(UserRepository userRepository,
                        JwtService jwtService,
-                       PasswordEncoder passwordEncoder) {
+                       PasswordEncoder passwordEncoder, UserMapper userMapper) {
         this.userRepository = userRepository;
         this.jwtService = jwtService;
         this.passwordEncoder = passwordEncoder;
+        this.userMapper = userMapper;
     }
 
     public UserEntity signup(SignupRequestDto dto) {
@@ -51,6 +57,13 @@ public class AuthService {
             throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Mot de passe invalide");
         }
 
-        return jwtService.generateToken(user);
+        return jwtService.generateToken(user.getIdUser());
+    }
+
+    public UserDto getCurrentUser(Long userId) {
+        UserEntity user = userRepository.findById(userId)
+                .orElseThrow(() -> new RuntimeException("Utilisateur non trouvé"));
+
+        return userMapper.toDto(user);
     }
 }

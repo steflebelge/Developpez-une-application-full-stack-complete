@@ -20,4 +20,21 @@
 .account {
   display: flex;
   justify-content: flex-end;
+
+  button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 40px;           /* taille du cercle */
+    height: 40px;
+    border-radius: 50%;    /* rend le bouton rond */
+    background-color: rgba(200, 200, 200, 0.3); /* gris transparent */
+    border: 2px solid #7e57c2; /* contour violet */
+    padding: 0;
+    cursor: pointer;
+  }
+
+  button mat-icon {
+    color: #7e57c2;       /* icône violette */
+  }
 }

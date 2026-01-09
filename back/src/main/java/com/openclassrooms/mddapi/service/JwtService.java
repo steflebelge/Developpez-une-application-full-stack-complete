@@ -1,49 +1,53 @@
 package com.openclassrooms.mddapi.service;
 
-import com.openclassrooms.mddapi.entity.UserEntity;
-import io.jsonwebtoken.Jwts;
-import io.jsonwebtoken.SignatureAlgorithm;
+import io.jsonwebtoken.*;
 import io.jsonwebtoken.security.Keys;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
-import java.nio.charset.StandardCharsets;
-import java.security.Key;
+import javax.crypto.SecretKey;
 import java.util.Date;
+import java.util.Map;
 
 @Service
 public class JwtService {
 
+    @Value("${jwt.secret}")
+    private String jwtSecret;
 
-    private final Key signingKey;
-    private final long expirationMs;
-
-    public JwtService(
-            @Value("${jwt.secret}") String secret,
-            @Value("${jwt.expiration}") long expirationMs
-    ) {
-        this.signingKey = Keys.hmacShaKeyFor(
-                secret.getBytes(StandardCharsets.UTF_8));
-        this.expirationMs = expirationMs;
+    private SecretKey getSigningKey() {
+        return Keys.hmacShaKeyFor(jwtSecret.getBytes());
     }
 
-    public String generateToken(UserEntity user) {
+    public String generateToken(Long userId) {
+        long expirationMs = 1000 * 60 * 60; // 1h
         return Jwts.builder()
-                .setSubject(user.getEmail())
-                .claim("userId", user.getIdUser())
+                .setClaims(Map.of("userId", userId))
                 .setIssuedAt(new Date())
                 .setExpiration(new Date(System.currentTimeMillis() + expirationMs))
-                .signWith(signingKey, SignatureAlgorithm.HS256)
+                .signWith(getSigningKey(), SignatureAlgorithm.HS256)
                 .compact();
     }
 
-    public String extractEmail(String token) {
-        return Jwts.parserBuilder()
-                .setSigningKey(signingKey)
+    public boolean validateToken(String token) {
+        try {
+            Jwts.parserBuilder()
+                    .setSigningKey(getSigningKey())
+                    .build()
+                    .parseClaimsJws(token);
+            return true;
+        } catch (JwtException e) {
+            return false;
+        }
+    }
+
+    public String getClaim(String token, String claimName) {
+        Claims claims = Jwts.parserBuilder()
+                .setSigningKey(getSigningKey())
                 .build()
                 .parseClaimsJws(token)
-                .getBody()
-                .getSubject();
+                .getBody();
+        Object value = claims.get(claimName);
+        return value != null ? value.toString() : null;
     }
 }
-

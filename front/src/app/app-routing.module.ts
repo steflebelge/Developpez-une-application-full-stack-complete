@@ -7,6 +7,7 @@ import {SignupComponent} from "./pages/signup/signup.component";
 import {AuthGuard} from "./guards/auth.guard";
 import {NotFoundComponent} from "./pages/not-found/not-found.component";
 import {ArticlesComponent} from "./pages/articles/articles.component";
+import {AccountComponent} from "./pages/account/account.component";
 
 const routes: Routes = [
   // routes publiques
@@ -20,7 +21,7 @@ const routes: Routes = [
     canActivate: [AuthGuard],
     children: [
       { path: 'articles', component: ArticlesComponent },
-      // { path: 'profile', component: ProfileComponent }
+      { path: 'account', component: AccountComponent }
     ]
   },
 

@@ -1,0 +1,45 @@
+<form [formGroup]="editForm" (ngSubmit)="onSubmit()" class="signup-form">
+
+  <h2>Modifier mon compte</h2>
+
+  <label>
+    Nom d'utilisateur
+    <input type="text" formControlName="name" />
+    <div *ngIf="submitted && editForm.controls['name'].errors">
+      <small *ngIf="editForm.controls['name'].errors['required']">
+        Nom d'utilisateur requis
+      </small>
+      <small *ngIf="editForm.controls['name'].errors['minlength']">
+        Minimum 3 caractères
+      </small>
+    </div>
+  </label>
+
+  <label>
+    Email
+    <input type="email" formControlName="email" />
+    <div *ngIf="submitted && editForm.controls['email'].errors">
+      <small *ngIf="editForm.controls['email'].errors['required']">
+        Email requis
+      </small>
+      <small *ngIf="editForm.controls['email'].errors['email']">
+        Email invalide
+      </small>
+    </div>
+  </label>
+
+  <label>
+    Mot de passe
+    <input type="password" formControlName="password" placeholder="Laisser vide si inchangé"/>
+    <div *ngIf="submitted && editForm.controls['password'].errors">
+      <small *ngIf="editForm.controls['password'].errors['minlength']">
+        Minimum 6 caractères
+      </small>
+    </div>
+  </label>
+
+  <p class="error" *ngIf="error">{{ error }}</p>
+
+  <button type="submit">Enregistrer</button>
+
+</form>

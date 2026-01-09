@@ -7,12 +7,11 @@
   <!-- Navigation (uniquement connecté) -->
   <nav *ngIf="auth.isAuthenticated()" class="nav">
     <a routerLink="/app/articles" routerLinkActive="active">Articles</a>
-    <a routerLink="/app/profile" routerLinkActive="active">Profil</a>
     <button (click)="logout()">Logout</button>
   </nav>
 
   <!-- Compte (uniquement connecté) -->
   <div *ngIf="auth.isAuthenticated()" class="account">
-    <button routerLink="/app/profile">Mon compte</button>
+    <button routerLink="/app/account">  <mat-icon>person</mat-icon></button>
   </div>
 </header>
