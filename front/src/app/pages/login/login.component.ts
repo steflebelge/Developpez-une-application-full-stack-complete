@@ -3,6 +3,7 @@ import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {Router} from '@angular/router';
 import {Location} from '@angular/common';
 import {ApiService} from "../../services/api.service";
+import {AuthService} from "../../services/auth.service";
 
 @Component({
   selector: 'app-login',
@@ -19,13 +20,14 @@ export class LoginComponent implements OnInit {
     private fb: FormBuilder,
     private location: Location,
     private apiService: ApiService,
-    private router: Router
+    private router: Router,
+    private authService: AuthService,
   ) {
   }
 
   ngOnInit(): void {
     this.loginForm = this.fb.group({
-      username: ['', [Validators.required, Validators.minLength(3)]],
+      login: ['', [Validators.required, Validators.minLength(3)]],
       password: ['', [Validators.required, Validators.minLength(6)]]
     });
   }
@@ -39,8 +41,11 @@ export class LoginComponent implements OnInit {
     this.submitted = true;
     if (this.loginForm.invalid) return;
 
-    this.apiService.post('auth/login', this.loginForm.value).subscribe({
-      next: () => this.router.navigate(['/app/articles']),
+    this.apiService.post<{ token: string }>('auth/login', this.loginForm.value).subscribe({
+      next: (res) => {
+        this.authService.login(res?.token);
+        this.router.navigate(['/app/articles']);
+      },
       error: () => this.error = 'Erreur lors du login'
     });
   }

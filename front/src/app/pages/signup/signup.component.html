@@ -7,12 +7,12 @@
 
   <label>
     Nom d'utilisateur
-    <input type="text" formControlName="username" />
-    <div *ngIf="submitted && signupForm.controls['username'].errors">
-      <small *ngIf="signupForm.controls['username'].errors['required']">
+    <input type="text" formControlName="name" />
+    <div *ngIf="submitted && signupForm.controls['name'].errors">
+      <small *ngIf="signupForm.controls['name'].errors['required']">
         Nom d'utilisateur requis
       </small>
-      <small *ngIf="signupForm.controls['username'].errors['minlength']">
+      <small *ngIf="signupForm.controls['name'].errors['minlength']">
         Minimum 3 caractères
       </small>
     </div>
