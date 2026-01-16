@@ -1,0 +1,28 @@
+<h3>{{ theme.name }}</h3>
+<p>{{ theme.description }}</p>
+
+<ng-container [ngSwitch]="true">
+
+  <button
+    *ngSwitchCase="unfollowLink"
+    (click)="unsubscribe()"
+  >
+    Se désabonner
+  </button>
+
+  <button
+    *ngSwitchCase="theme.isUserAbonner"
+    class="disabled"
+  >
+    Déja abonné
+  </button>
+
+  <button
+    *ngSwitchDefault
+    (click)="subscribe()"
+  >
+    S’abonner
+  </button>
+
+</ng-container>
+<p class="error" *ngIf="error">{{ error }}</p>

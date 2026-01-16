@@ -1,3 +1,5 @@
+@use "styles/variables" as vars;
+
 .header {
   display: grid;
   grid-template-columns: auto 1fr auto;
@@ -8,13 +10,30 @@
 }
 
 .logo img {
-  height: 40px;
+  height: 70px;
 }
 
 .nav {
   display: flex;
   justify-content: center;
   gap: 2rem;
+
+  button {
+    background-color: white;
+    border: none;
+    color: #A40F0F;
+    font-weight: 500;
+    cursor: pointer;
+  }
+
+  a {
+    text-decoration: none;
+    color: black;
+
+    &.active {
+      color: vars.$primary-color;
+    }
+  }
 }
 
 .account {
@@ -25,16 +44,20 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 40px;           /* taille du cercle */
+    width: 40px;
     height: 40px;
-    border-radius: 50%;    /* rend le bouton rond */
-    background-color: rgba(200, 200, 200, 0.3); /* gris transparent */
-    border: 2px solid #7e57c2; /* contour violet */
+    border-radius: 50%;
+    background-color: rgba(200, 200, 200, 0.3);
+    border: none;
     padding: 0;
     cursor: pointer;
+
+    &.active{
+      border: 2px solid #7e57c2;
+    }
   }
 
   button mat-icon {
-    color: #7e57c2;       /* icône violette */
+    color: #7e57c2;
   }
 }

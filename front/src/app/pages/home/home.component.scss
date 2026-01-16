@@ -1,3 +1,5 @@
+@use "styles/variables" as vars;
+
 .center {
   height: 100vh;
   display: flex;
@@ -14,7 +16,7 @@
       background: none;
       border: 1px solid black;
       color: black;
-      border-radius: 10px;
+      border-radius: vars.$borderRadius;
     }
   }
 }

@@ -40,7 +40,7 @@ export class SignupComponent implements OnInit {
     if (this.signupForm.invalid) return;
 
     this.apiService.post('auth/signup', this.signupForm.value).subscribe({
-      next: () => this.router.navigate(['/login']),
+      next: () => this.router.navigate(['/pub/login']),
       error: () => this.error = 'Erreur lors de l’inscription'
     });
   }

@@ -15,6 +15,10 @@ import { HeaderComponent } from './components/header/header.component';
 import {ReactiveFormsModule} from "@angular/forms";
 import {MatIconModule} from "@angular/material/icon";
 import {AccountComponent} from "./pages/account/account.component";
+import { ThemeComponent } from './components/theme/theme.component';
+import {ThemesComponent} from "./pages/themes/themes.component";
+import {ArticleDetailsComponent} from "./pages/article-details/article-details.component";
+import {ArticleNewComponent} from "./pages/article-new/article-new.component";
 
 @NgModule({
   declarations: [AppComponent,
@@ -24,7 +28,11 @@ import {AccountComponent} from "./pages/account/account.component";
     NotFoundComponent,
     ArticlesComponent,
     HeaderComponent,
-    AccountComponent],
+    AccountComponent,
+    ThemesComponent,
+    ThemeComponent,
+    ArticleDetailsComponent,
+    ArticleNewComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,

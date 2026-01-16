@@ -1,3 +1,5 @@
+@use "styles/variables" as vars;
+
 form {
   display: flex;
   flex-direction: column;
@@ -13,7 +15,13 @@ form {
     input{
       line-height: 35px;
       border: 1px solid black;
-      border-radius: 10px;
+      border-radius: vars.$borderRadius;
+
+      &:focus {
+        outline: none;
+        border-color: vars.$primary-color;
+        border-width: 2px;
+      }
     }
 
     small{
@@ -25,9 +33,9 @@ form {
     width: 50%;
     padding: 10px 20px;
     border: none;
-    background-color: violet;
+    background-color: vars.$primary-color;
     color: white;
-    border-radius: 5px;
+    border-radius: vars.$borderRadius;
     font-weight: bolder;
     font-size: 1.1rem;
     margin: auto;
@@ -39,5 +47,28 @@ form {
   .error {
     color: red;
   }
+}
 
+hr{
+  margin: 25px 0;
+}
+
+h2{
+  text-align: center;
+  font-weight: 900;
+}
+ul{
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  justify-content: space-around;
+
+
+  li {
+    flex: 0 0 40%;
+    list-style: none;
+    background-color: vars.$cardBackgroundColor;
+    border-radius: vars.$borderRadius;
+    padding: 25px;
+  }
 }

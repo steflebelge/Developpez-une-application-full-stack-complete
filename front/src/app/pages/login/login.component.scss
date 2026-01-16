@@ -1,3 +1,5 @@
+@use "styles/variables" as vars;
+
 .back-btn {
   position: absolute;
   top: 5rem;
@@ -25,7 +27,7 @@ form {
     input{
       line-height: 35px;
       border: 1px solid black;
-      border-radius: 10px;
+      border-radius: vars.$borderRadius;
     }
 
     small{
@@ -37,9 +39,9 @@ form {
     width: 50%;
     padding: 10px 20px;
     border: none;
-    background-color: violet;
+    background-color: vars.$primary-color;
     color: white;
-    border-radius: 5px;
+    border-radius: vars.$borderRadius;
     font-weight: bolder;
     font-size: 1.1rem;
     margin: auto;

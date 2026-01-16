@@ -1,8 +1,10 @@
 import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {ApiService} from "../../services/api.service";
-import {AuthService} from "../../services/auth.service";
 import {Router} from "@angular/router";
+import {Theme} from '../../models/theme.model';
+import {User} from "../../models/user.model";
+import {Subscription} from "rxjs";
 
 @Component({
   selector: 'app-account',
@@ -14,26 +16,29 @@ export class AccountComponent implements OnInit {
   editForm: FormGroup;
   submitted = false;
   error: string | null = null;
+  themes: Theme[] = [];
+  private subscription!: Subscription;
 
   constructor(
     private fb: FormBuilder,
     private apiService: ApiService,
-    private authService: AuthService,
     private router: Router
   ) {
     this.editForm = this.fb.group({
       name: ['', [Validators.required, Validators.minLength(3)]],
       email: ['', [Validators.required, Validators.email]],
-      password: ['', [Validators.minLength(6)]], // facultatif si tu veux pas forcer le changement
+      password: ['', [Validators.minLength(6)]],
     });
   }
 
   ngOnInit(): void {
-    interface User {
-      id: number;
-      name: string;
-      email: string;
-    }
+    //chargement des abonnements
+    this.loadAbonnements();
+
+    // S'abonner aux notifications des abonnements supprimés
+    this.subscription = this.apiService.abonnementRemoved$.subscribe(themeId => {
+      this.loadAbonnements();
+    });
 
     //récupérer les infos utilisateur
     this.apiService.get<User>('auth/me').subscribe({
@@ -47,6 +52,18 @@ export class AccountComponent implements OnInit {
           });
         }
       },
+      error: () => this.error = 'Erreur lors du login'
+    });
+  }
+
+  ngOnDestroy(): void {
+    this.subscription.unsubscribe();
+  }
+
+  loadAbonnements() {
+    //récupérer les thèmes utilisateurs
+    this.apiService.get<Theme[]>('abonnement/get').subscribe({
+      next: (res) => this.themes = res,
       error: () => this.error = 'Erreur lors du login'
     });
   }

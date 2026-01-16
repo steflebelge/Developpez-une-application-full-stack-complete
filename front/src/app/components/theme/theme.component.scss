@@ -1,5 +1,9 @@
 @use "styles/variables" as vars;
 
+h3 {
+  font-weight: 500;
+}
+
 button {
   padding: 10px 20px;
   border: none;
@@ -8,9 +12,22 @@ button {
   border-radius: vars.$borderRadius;
   font-weight: bolder;
   font-size: 1.1rem;
-  margin-left: 25px;
-  margin-top: 25px;
+  margin: auto;
+  display: block;
+
   &:hover {
     cursor: pointer;
   }
+
+  &.disabled{
+    background-color: grey;
+
+    &:hover{
+      cursor: initial;
+    }
+  }
+}
+
+.error {
+  color: red;
 }

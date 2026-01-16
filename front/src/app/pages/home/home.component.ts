@@ -8,17 +8,17 @@ import {AuthService} from "../../services/auth.service";
   styleUrls: ['./home.component.scss'],
 })
 export class HomeComponent implements OnInit {
-  constructor(private router: Router, private authService: AuthService) {
+  constructor(private router: Router) {
   }
 
   ngOnInit(): void {
   }
 
   login() {
-    this.router.navigate(['/login']);
+    this.router.navigate(['/pub/login']);
   }
 
   signup() {
-    this.router.navigate(['/signup']);
+    this.router.navigate(['/pub/signup']);
   }
 }

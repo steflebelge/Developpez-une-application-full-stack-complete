@@ -1,0 +1,17 @@
+@use "styles/variables" as vars;
+
+ul{
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  justify-content: space-around;
+
+
+  li {
+    flex: 0 0 40%;
+    list-style: none;
+    background-color: vars.$cardBackgroundColor;
+    border-radius: vars.$borderRadius;
+    padding: 25px;
+  }
+}

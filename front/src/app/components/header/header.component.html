@@ -6,12 +6,20 @@
 
   <!-- Navigation (uniquement connecté) -->
   <nav *ngIf="auth.isAuthenticated()" class="nav">
-    <a routerLink="/app/articles" routerLinkActive="active">Articles</a>
-    <button (click)="logout()">Logout</button>
+    <button (click)="logout()">Se déconnecter</button>
+    <a routerLink="/app/articles"
+       routerLinkActive="active"
+       [routerLinkActiveOptions]="{ exact: false }">Articles</a>
+    <a routerLink="/app/themes"
+       routerLinkActive="active"
+       [routerLinkActiveOptions]="{ exact: false }">Thèmes</a>
   </nav>
 
   <!-- Compte (uniquement connecté) -->
   <div *ngIf="auth.isAuthenticated()" class="account">
-    <button routerLink="/app/account">  <mat-icon>person</mat-icon></button>
+    <button
+      routerLinkActive="active"
+      [routerLinkActiveOptions]="{ exact: false }"
+      routerLink="/app/account">  <mat-icon>person</mat-icon></button>
   </div>
 </header>

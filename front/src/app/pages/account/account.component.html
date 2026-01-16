@@ -40,6 +40,16 @@
 
   <p class="error" *ngIf="error">{{ error }}</p>
 
-  <button type="submit">Enregistrer</button>
+  <button type="submit">Sauvegarder</button>
 
 </form>
+
+<hr/>
+
+<h2>Abonnements :</h2>
+
+<ul>
+  <li *ngFor="let theme of themes">
+    <app-theme [unfollowLink]="true" [theme]="theme"></app-theme>
+  </li>
+</ul>

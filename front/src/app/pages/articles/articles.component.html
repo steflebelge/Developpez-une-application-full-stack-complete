@@ -1,1 +1,9 @@
-<p>articles works!</p>
+<button (click)="createArticle()">Créer un article</button>
+
+<ul>
+  <li *ngFor="let article of articles" (click)="details(article.idArticle)">
+    <p>{{article.titre}}</p>
+    <p>{{article.date}} <span>AUTEUR</span> </p>
+    <p>{{article.contenu}}</p>
+  </li>
+</ul>
