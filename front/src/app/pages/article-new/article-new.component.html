@@ -1,1 +1,39 @@
-<p>article-new works!</p>
+<div class="content">
+  <button class="back-btn" type="button" (click)="goBack()">
+    <mat-icon>arrow_back</mat-icon>
+  </button>
+
+  <h2>Créer un nouvel article</h2>
+
+  <form [formGroup]="form" (ngSubmit)="submit()">
+    <!-- Liste déroulante des thèmes -->
+    <label for="theme">Thème :</label>
+    <select id="theme" formControlName="themeId">
+      <option value="" disabled>Choisir un thème</option>
+      <option *ngFor="let theme of themes" [value]="theme.idTheme">{{ theme.name }}</option>
+    </select>
+    <div class="error" *ngIf="form.get('themeId')?.touched && form.get('themeId')?.invalid">
+      Veuillez choisir un thème
+    </div>
+
+    <!-- Titre -->
+    <label for="title">Titre :</label>
+    <input placeholder="Titre de l'article" id="title" type="text" formControlName="title"/>
+    <div class="error" *ngIf="form.get('title')?.touched && form.get('title')?.invalid">
+      Titre requis (max 100 caractères)
+    </div>
+
+    <!-- Contenu -->
+    <label for="content">Contenu :</label>
+    <textarea placeholder="Contenu de l'article" id="content" formControlName="content" rows="5"></textarea>
+    <div class="error" *ngIf="form.get('content')?.touched && form.get('content')?.invalid">
+      Contenu requis (min 10 caractères)
+    </div>
+
+    <!-- Bouton valider -->
+    <button type="submit" [disabled]="form.invalid">Créer</button>
+
+    <!-- Erreur backend -->
+    <p class="error" *ngIf="error">{{ error }}</p>
+  </form>
+</div>

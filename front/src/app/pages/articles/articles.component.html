@@ -1,5 +1,7 @@
 <button (click)="createArticle()">Créer un article</button>
 
+<p class="error" *ngIf="error">{{ error }}</p>
+
 <ul>
   <li *ngFor="let article of articles" (click)="details(article.idArticle)">
     <p>{{article.titre}}</p>

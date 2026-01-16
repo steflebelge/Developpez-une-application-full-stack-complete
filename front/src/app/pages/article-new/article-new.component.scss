@@ -1,0 +1,67 @@
+@use "styles/variables" as vars;
+
+div.content{
+
+  button.back-btn {
+    position: absolute;
+    top: 5rem;
+    left: 5rem;
+    border: none;
+    background-color: white;
+
+    &:hover{
+      cursor: pointer;
+    }
+  }
+
+  h2{
+    text-align: center;
+  }
+
+  form {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    width: 50%;
+    margin: auto;
+
+    label {
+      font-weight: bold;
+    }
+
+    input, select, textarea {
+      padding: 0.5rem;
+      border-radius: vars.$borderRadius;
+      border: 1px solid #ccc;
+
+      &:focus {
+        outline: none;
+        border-color: vars.$primary-color;
+        border-width: 2px;
+      }
+    }
+
+    .error {
+      color: red;
+      font-size: 0.9rem;
+    }
+
+    button {
+      padding: 10px 40px;
+      border: none;
+      background-color: vars.$primary-color;
+      color: white;
+      border-radius: vars.$borderRadius;
+      font-weight: bolder;
+      font-size: 1.1rem;
+      margin: auto;
+      cursor: pointer;
+
+      &:disabled {
+        background-color: #999;
+        cursor: not-allowed;
+      }
+    }
+  }
+
+}
