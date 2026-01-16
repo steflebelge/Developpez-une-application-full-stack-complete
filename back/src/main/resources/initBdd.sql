@@ -32,12 +32,17 @@ CREATE TABLE article
 (
     id_article BIGSERIAL PRIMARY KEY,
     theme_id   BIGINT      NOT NULL,
+    id_user   BIGINT      NOT NULL,
     titre      VARCHAR(30) NOT NULL,
     contenu    TEXT        NOT NULL,
     date       TIMESTAMP   NOT NULL,
     CONSTRAINT fk_article_theme
         FOREIGN KEY (theme_id)
             REFERENCES theme (id_theme)
+            ON DELETE CASCADE,
+    CONSTRAINT fk_article_user
+        FOREIGN KEY (id_user)
+            REFERENCES users (id_user)
             ON DELETE CASCADE
 );
 

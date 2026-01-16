@@ -10,9 +10,4 @@ import java.util.List;
 @Repository
 public interface ArticleRepository extends JpaRepository<ArticleEntity, Long> {
 
-    // Récupérer les articles par thème
-    List<ArticleEntity> findByTheme(ThemeEntity theme);
-
-    // Recherche par titre (optionnel)
-    List<ArticleEntity> findByTitreContainingIgnoreCase(String titre);
 }

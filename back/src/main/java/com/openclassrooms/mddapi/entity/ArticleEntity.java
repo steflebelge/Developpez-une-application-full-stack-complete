@@ -21,6 +21,10 @@ public class ArticleEntity {
     @Column(name = "id_article")
     private Long idArticle;
 
+    @ManyToOne
+    @JoinColumn(name = "id_user", nullable = false)
+    private UserEntity user;
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "theme_id", nullable = false)
     private ThemeEntity theme;
@@ -31,7 +35,6 @@ public class ArticleEntity {
     @Column(nullable = false, columnDefinition = "TEXT")
     private String contenu;
 
-    @Column(nullable = false)
-    private LocalDateTime date;
+    private LocalDateTime date = LocalDateTime.now();
 }
 

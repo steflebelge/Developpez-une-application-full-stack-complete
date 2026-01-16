@@ -8,10 +8,10 @@ import org.mapstruct.Mapping;
 @Mapper(componentModel = "spring")
 public interface ArticleMapper {
 
-    @Mapping(target = "idTheme", source = "theme.idTheme")
+    @Mapping(target = "userId", source = "user.idUser")
+    @Mapping(target = "username", source = "user.name")
+    @Mapping(target = "themeId", source = "theme.idTheme")
+    @Mapping(target = "themeName", source = "theme.name")
     ArticleDto toDto(ArticleEntity entity);
-
-    @Mapping(target = "idArticle", ignore = true)
-    @Mapping(target = "theme", ignore = true)
-    ArticleEntity toEntity(ArticleDto dto);
 }
+

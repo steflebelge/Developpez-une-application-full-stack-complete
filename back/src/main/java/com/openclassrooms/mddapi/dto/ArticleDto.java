@@ -15,8 +15,6 @@ import java.time.LocalDateTime;
 public class ArticleDto {
     private long idArticle;
 
-    private long idTheme;
-
     @NotNull
     @Size(max = 30)
     private String titre;
@@ -26,4 +24,10 @@ public class ArticleDto {
 
     @NotNull
     private LocalDateTime date;
+
+    private Long userId;
+    private String username;
+
+    private Long themeId;
+    private String themeName;
 }
