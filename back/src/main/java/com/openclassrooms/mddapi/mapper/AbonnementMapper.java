@@ -8,11 +8,13 @@ import org.mapstruct.Mapping;
 @Mapper(componentModel = "spring")
 public interface AbonnementMapper {
 
-    @Mapping(target = "idUser", source = "id.idUser")
-    @Mapping(target = "idTheme", source = "id.idTheme")
+    // Entity → DTO
+    @Mapping(target = "idUser", source = "user.idUser")
+    @Mapping(target = "idTheme", source = "theme.idTheme")
     AbonnementDto toDto(AbonnementEntity entity);
 
-    @Mapping(target = "id", expression = "java(new AbonnementId(dto.getIdUser(), dto.getIdTheme()))")
+    // DTO → Entity
+    // user et theme injectés dans le service
     @Mapping(target = "user", ignore = true)
     @Mapping(target = "theme", ignore = true)
     AbonnementEntity toEntity(AbonnementDto dto);

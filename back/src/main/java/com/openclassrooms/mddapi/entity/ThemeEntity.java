@@ -22,4 +22,7 @@ public class ThemeEntity {
 
     @Column(nullable = false, length = 20)
     private String name;
+
+    @Column(nullable = false, length = 200)
+    private String description;
 }

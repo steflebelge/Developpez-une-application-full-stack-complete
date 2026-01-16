@@ -17,6 +17,9 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
+import java.util.Map;
+
 @Slf4j
 @RestController
 @RequestMapping("/api/auth")
@@ -52,6 +55,14 @@ public class AuthController {
     public UserDto me(Authentication authentication) {
         Long userId = (Long) authentication.getPrincipal();
         return authService.getCurrentUser(userId);
+    }
+
+    @GetMapping("/checkToken")
+    public ResponseEntity<Map<String, Object>>  checkToken() {
+        Map<String, Object> response = new HashMap<>();
+        response.put("valid", true);
+        return ResponseEntity.ok(response);
+
     }
 
 }

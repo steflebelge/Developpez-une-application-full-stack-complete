@@ -13,18 +13,16 @@ import jakarta.persistence.*;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
+@IdClass(AbonnementId.class)
 public class AbonnementEntity {
 
-    @EmbeddedId
-    private AbonnementId id;
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    @MapsId("idUser")
-    @JoinColumn(name = "user_id")
+    @Id
+    @ManyToOne
+    @JoinColumn(name = "user_id", nullable = false)
     private UserEntity user;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @MapsId("idTheme")
-    @JoinColumn(name = "theme_id")
+    @Id
+    @ManyToOne
+    @JoinColumn(name = "theme_id", nullable = false)
     private ThemeEntity theme;
 }

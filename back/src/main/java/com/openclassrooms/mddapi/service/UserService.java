@@ -47,12 +47,22 @@ public class UserService implements UserDetailsService {
                 .ifPresent(u -> {
                     throw new ResponseStatusException(HttpStatus.CONFLICT, "Utilisateur non trouvé");
                 });
+        // nom unique
+        userRepository.findByName(dto.getName())
+                .filter(u -> !u.getIdUser().equals(userId))
+                .ifPresent(u -> {
+                    throw new ResponseStatusException(HttpStatus.CONFLICT, "Utilisateur non trouvé");
+                });
 
         user.setName(dto.getName());
         user.setEmail(dto.getEmail());
 
-        if (dto.getPassword() != null && !dto.getPassword().isBlank()) {
-            user.setPassword(passwordEncoder.encode(dto.getPassword()));
+        if(Boolean.parseBoolean(dto.getPassword())) {
+            if (!dto.getPassword().isBlank()) {
+                user.setPassword(passwordEncoder.encode(dto.getPassword()));
+            }else{
+                throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Mot de passe invalide");
+            }
         }
 
         userRepository.save(user);

@@ -10,10 +10,14 @@ import jakarta.validation.constraints.Size;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class ThemeDto {
+public class UserThemeDto {
     private long idTheme;
 
     @NotNull
     @Size(max = 20)
     private String name;
+
+    @NotNull
+    @Size(max = 200)
+    private String description;
 }

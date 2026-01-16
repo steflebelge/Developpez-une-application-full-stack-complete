@@ -9,7 +9,8 @@ CREATE TABLE users
 CREATE TABLE theme
 (
     id_theme BIGSERIAL PRIMARY KEY,
-    name     VARCHAR(20) NOT NULL
+    name     VARCHAR(20) NOT NULL,
+    description     VARCHAR(200) NOT NULL
 );
 
 CREATE TABLE abonnement
