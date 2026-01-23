@@ -90,12 +90,13 @@ public class ArticleService {
         // mappe l'article
         ArticleDto dto = articleMapper.toDto(article);
 
-// mappe les commentaires vers le DTO
+        // mappe les commentaires vers le DTO
         dto.setCommentaires(commentaires.stream().map(c -> {
             CommentaireDto cdto = new CommentaireDto();
             cdto.setIdCommentaire(c.getIdCommentaire());
             cdto.setMessage(c.getMessage());
             cdto.setDate(c.getDate());
+            cdto.setUsername(c.getUser().getName());
             return cdto;
         }).toList());
 

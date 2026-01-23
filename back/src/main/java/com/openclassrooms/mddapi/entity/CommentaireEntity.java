@@ -25,6 +25,10 @@ public class CommentaireEntity {
     @JoinColumn(name = "article_id", nullable = false)
     private ArticleEntity article;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id", nullable = false)
+    private UserEntity user;
+
     @Column(nullable = false, columnDefinition = "TEXT")
     private String message;
 

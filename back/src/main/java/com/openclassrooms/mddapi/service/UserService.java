@@ -18,7 +18,7 @@ import java.util.ArrayList;
 @Service
 public class UserService implements UserDetailsService {
     private final UserRepository userRepository;
-    private final UserMapper  userMapper;
+    private final UserMapper userMapper;
     private final PasswordEncoder passwordEncoder;
 
     public UserService(UserRepository userRepository, UserMapper userMapper, PasswordEncoder passwordEncoder) {
@@ -41,31 +41,41 @@ public class UserService implements UserDetailsService {
         UserEntity user = userRepository.findById(userId)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Utilisateur non trouvé"));
 
-        // email unique
+        // Vérifications d'unicité (email / name)
         userRepository.findByEmail(dto.getEmail())
                 .filter(u -> !u.getIdUser().equals(userId))
-                .ifPresent(u -> {
-                    throw new ResponseStatusException(HttpStatus.CONFLICT, "Utilisateur non trouvé");
-                });
-        // nom unique
+                .ifPresent(u -> { throw new ResponseStatusException(HttpStatus.CONFLICT, "Email déjà utilisé"); });
+
         userRepository.findByName(dto.getName())
                 .filter(u -> !u.getIdUser().equals(userId))
-                .ifPresent(u -> {
-                    throw new ResponseStatusException(HttpStatus.CONFLICT, "Utilisateur non trouvé");
-                });
+                .ifPresent(u -> { throw new ResponseStatusException(HttpStatus.CONFLICT, "Nom déjà utilisé"); });
 
+        // Mise à jour
         user.setName(dto.getName());
         user.setEmail(dto.getEmail());
 
-        if(Boolean.parseBoolean(dto.getPassword())) {
-            if (!dto.getPassword().isBlank()) {
-                user.setPassword(passwordEncoder.encode(dto.getPassword()));
-            }else{
-                throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Mot de passe invalide");
+        String password = dto.getPassword();
+        if (password != null && !password.isBlank()) {
+            // Validation complexe
+            if (password.length() < 8
+                    || !password.matches(".*[a-z].*")
+                    || !password.matches(".*[A-Z].*")
+                    || !password.matches(".*\\d.*")
+                    || !password.matches(".*[^A-Za-z0-9].*")) {
+
+                throw new ResponseStatusException(
+                        HttpStatus.BAD_REQUEST,
+                        "Mot de passe invalide : il doit contenir au moins 8 caractères, " +
+                                "une majuscule, une minuscule, un chiffre et un caractère spécial"
+                );
             }
+
+            // Encodage et mise à jour
+            user.setPassword(passwordEncoder.encode(password));
         }
 
         userRepository.save(user);
         return userMapper.toDto(user);
     }
+
 }

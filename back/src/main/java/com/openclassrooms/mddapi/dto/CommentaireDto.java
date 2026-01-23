@@ -14,6 +14,7 @@ import java.time.LocalDateTime;
 public class CommentaireDto {
     private long idCommentaire;
     private long idArticle;
+    private String username;
     @NotBlank
     private String message;
     @NotNull

@@ -16,7 +16,6 @@ public class UserUpdateRequestDto {
     @Email
     private String email;
 
-    @Size(min = 6)
     private String password;
 }
 
