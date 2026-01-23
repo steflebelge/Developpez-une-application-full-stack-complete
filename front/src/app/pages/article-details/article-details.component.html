@@ -1,1 +1,30 @@
-<p>article-details works!</p>
+<div *ngIf="article">
+  <div id="article">
+    <h3>{{ article.titre }}</h3>
+    <p>{{ article.date | date:'dd MMM yyyy à HH:mm' }} <span>{{ article.username }}</span>
+      <span>{{ article.themeName }}</span></p>
+    <p class="contenu">{{ article.contenu }}</p>
+  </div>
+
+  <hr>
+
+  <div id="commentaires">
+    <div *ngFor="let commentaire of article?.commentaires">
+      <p>{{ commentaire.message }}</p>
+    </div>
+
+    <form [formGroup]="form" (ngSubmit)="submit()">
+      <!-- Contenu -->
+      <textarea placeholder="Contenu du commentaire" id="content" formControlName="content" rows="5"></textarea>
+      <button><mat-icon>send</mat-icon></button>
+      <div class="error" *ngIf="form.get('content')?.touched && form.get('content')?.invalid">
+        Contenu requis (min 1 caractères)
+      </div>
+    </form>
+  </div>
+</div>
+
+<!-- Erreur backend -->
+<p class="error" *ngIf="error">{{ error }}</p>
+<!-- succès backend -->
+<p class="success" *ngIf="success">{{ success }}</p>

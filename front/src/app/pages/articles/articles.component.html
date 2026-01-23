@@ -1,11 +1,22 @@
-<button (click)="createArticle()">Créer un article</button>
+
+
+
+
+<div>
+  <button id="createArticle" (click)="createArticle()">Créer un article</button>
+  <button id="sortArticles" (click)="toggleSortArticles()">
+    Trier par <mat-icon [class]="sorted">arrow_back</mat-icon>
+  </button>
+</div>
 
 <p class="error" *ngIf="error">{{ error }}</p>
 
 <ul>
-  <li *ngFor="let article of articles" (click)="details(article.idArticle)">
-    <p>{{article.titre}}</p>
-    <p>{{article.date}} <span>AUTEUR</span> </p>
-    <p>{{article.contenu}}</p>
+  <li *ngFor="let article of articles" (click)="details(article)">
+    <div class="article">
+      <h3>{{article.titre}}</h3>
+      <p>{{ article.date | date:'dd MMM yyyy à HH:mm' }} <span>{{article.username}}</span> </p>
+      <p class="contenu">{{article.contenu}}</p>
+    </div>
   </li>
 </ul>

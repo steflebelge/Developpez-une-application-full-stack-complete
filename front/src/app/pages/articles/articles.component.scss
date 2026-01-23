@@ -1,19 +1,88 @@
 @use "styles/variables" as vars;
 
-button {
-  padding: 10px 20px;
-  border: none;
-  background-color: vars.$primary-color;
-  color: white;
-  border-radius: vars.$borderRadius;
-  font-weight: bolder;
-  font-size: 1.1rem;
-  margin: 25px;
-  &:hover {
-    cursor: pointer;
+div:not(.article) {
+  display: flex;
+  justify-content: space-between;
+
+  button {
+    border: none;
+    margin: 25px;
+    font-weight: bolder;
+
+    &#createArticle {
+      padding: 10px 20px;
+      background-color: vars.$primary-color;
+      color: white;
+      border-radius: vars.$borderRadius;
+      font-size: 1.1rem;
+    }
+
+    &#sortArticles {
+      display: flex;
+      align-items: center;
+      background-color: white;
+
+      mat-icon {
+        transform: rotate(-90deg);
+
+        &.asc {
+          transform: rotate(90deg);
+        }
+      }
+    }
+
+    &:hover {
+      cursor: pointer;
+    }
   }
 }
 
-p.error{
+p.error {
   color: red;
+}
+
+ul {
+  display: flex;
+  flex-wrap: wrap;
+  padding: 10px;
+  gap: 100px;
+  justify-content: center;
+
+  li {
+    list-style-type: none;
+    width: calc(40% - 5px);
+    box-sizing: border-box;
+    cursor: pointer;
+  }
+
+  div.article {
+    height: 165px;
+    overflow: hidden;
+    border-radius: vars.$borderRadius;
+    background-color: #F5F5F5;
+    padding: 10px;
+    margin: auto;
+
+    h3 {
+      font-weight: bold;
+    }
+
+    p:not(.contenu) {
+      display: flex;
+      justify-content: space-between;
+
+      span {
+        width: 50%;
+      }
+    }
+
+    p.contenu {
+      margin-top: auto;
+      display: -webkit-box;
+      -webkit-line-clamp: 4;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+  }
 }

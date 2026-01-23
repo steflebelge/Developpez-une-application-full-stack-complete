@@ -13,11 +13,11 @@ export class ArticleNewComponent implements OnInit {
   form!: FormGroup;
   themes: Theme[] = [];
   error: string = '';
+  success: string = '';
 
   constructor(private fb: FormBuilder, private location: Location, private apiService: ApiService) {}
 
   ngOnInit(): void {
-    // 1️⃣ Créer le formulaire
     this.form = this.fb.group({
       themeId: [null, Validators.required],
       title: ['', [Validators.required, Validators.maxLength(100)]],
@@ -44,7 +44,7 @@ export class ArticleNewComponent implements OnInit {
     const payload = this.form.value;
     this.apiService.post('articles/create', payload).subscribe({
       next: () => {
-        console.log('Post créé !');
+        this.success = 'Post créé !';
         this.form.reset();
       },
       error: (err) => {

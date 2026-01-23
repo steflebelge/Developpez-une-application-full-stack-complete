@@ -33,7 +33,9 @@
     <!-- Bouton valider -->
     <button type="submit" [disabled]="form.invalid">Créer</button>
 
-    <!-- Erreur backend -->
-    <p class="error" *ngIf="error">{{ error }}</p>
   </form>
+  <!-- Erreur backend -->
+  <p class="error" *ngIf="error">{{ error }}</p>
+  <!-- succès backend -->
+  <p class="success" *ngIf="success">{{ success }}</p>
 </div>
