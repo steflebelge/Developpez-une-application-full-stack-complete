@@ -12,6 +12,10 @@
   }
 }
 
+img{
+  display: none;
+}
+
 form {
   display: flex;
   flex-direction: column;
@@ -52,6 +56,38 @@ form {
 
   .error {
     color: red;
+  }
+}
+
+//Responsive
+@media (max-width: 950px) {
+  form button {
+    width: fit-content;
+  }
+}
+@media (max-width: 750px) {
+  .back-btn{
+    top: 1rem;
+  }
+
+  img{
+    display: block;
+    width: 40%;
+    margin: auto;
+  }
+
+  form {
+    width: 40%;
+    margin-top: 1rem;
+  }
+}
+@media (max-width: 400px) {
+  img, form{
+    width: 75%;
+  }
+
+  .back-btn{
+    left: 1rem;
   }
 
 }

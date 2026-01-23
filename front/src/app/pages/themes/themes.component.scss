@@ -1,6 +1,6 @@
 @use "styles/variables" as vars;
 
-ul{
+ul {
   display: flex;
   flex-wrap: wrap;
   gap: 1rem;
@@ -13,5 +13,26 @@ ul{
     background-color: vars.$cardBackgroundColor;
     border-radius: vars.$borderRadius;
     padding: 25px;
+  }
+}
+
+
+//Responsive
+@media (max-width: 950px) {
+  ul {
+    gap: 20px;
+    padding: 0;
+    margin-top: 25px;
+    justify-content: center;
+  }
+}
+@media (max-width: 750px) {
+  ul {
+    flex-direction: column;
+    align-items: center;
+
+    li{
+      width: 70%;
+    }
   }
 }

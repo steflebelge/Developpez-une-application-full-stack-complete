@@ -99,3 +99,52 @@ div#content {
     color: green;
   }
 }
+
+//Responsive
+@media (max-width: 950px) {
+  .back-btn{
+    left: 1rem !important;
+  }
+}
+@media (max-width: 750px) {
+  .back-btn{
+    top: 1rem !important;
+  }
+
+}
+@media (max-width: 500px) {
+  div#content{
+    width: 80%;
+
+    div#article{
+      p:not(.contenu) {
+        width: 100%;
+        flex-wrap: wrap;
+
+        span{
+          width: 40%;
+        }
+      }
+    }
+
+    div#commentaires{
+      div {
+
+        p {
+          flex-wrap: wrap;
+          justify-content: end;
+          width: 90%;
+
+          span {
+            width: 100%;
+          }
+        }
+      }
+      form{
+        width: 90%;
+        gap: 15px
+      }
+    }
+
+  }
+}

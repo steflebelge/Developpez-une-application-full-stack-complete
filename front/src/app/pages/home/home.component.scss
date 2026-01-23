@@ -7,6 +7,9 @@
   align-items: center;
   flex-direction: column;
 
+  img{
+    width: 80%;
+  }
   div{
     display: flex;
     gap: 10rem;
@@ -18,5 +21,14 @@
       color: black;
       border-radius: vars.$borderRadius;
     }
+  }
+}
+
+
+//ersponsive :
+@media (max-width: 400px) {
+  .center div{
+    flex-direction: column;
+    gap: 3rem;
   }
 }

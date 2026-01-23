@@ -61,3 +61,17 @@
     color: #7e57c2;
   }
 }
+
+.responsiveHeader{
+  display: none;
+}
+
+//Responsive
+@media (max-width: 750px) {
+  .header {
+    display: none;
+  }
+  .responsiveHeader {
+    display: block;
+  }
+}
