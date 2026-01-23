@@ -8,6 +8,7 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Data
 @NoArgsConstructor
@@ -30,4 +31,6 @@ public class ArticleDto {
 
     private Long themeId;
     private String themeName;
+
+    private List<CommentaireDto> commentaires;
 }

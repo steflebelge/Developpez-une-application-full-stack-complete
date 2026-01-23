@@ -1,9 +1,14 @@
 package com.openclassrooms.mddapi.mapper;
 
 import com.openclassrooms.mddapi.dto.ArticleDto;
+import com.openclassrooms.mddapi.dto.CommentaireDto;
 import com.openclassrooms.mddapi.entity.ArticleEntity;
+import com.openclassrooms.mddapi.entity.CommentaireEntity;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
+
+import java.util.Comparator;
+import java.util.List;
 
 @Mapper(componentModel = "spring")
 public interface ArticleMapper {

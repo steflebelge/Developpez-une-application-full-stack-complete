@@ -1,15 +1,14 @@
 package com.openclassrooms.mddapi.service;
 
 import com.openclassrooms.mddapi.dto.ArticleDto;
+import com.openclassrooms.mddapi.dto.CommentaireDto;
 import com.openclassrooms.mddapi.dto.CreateArticleDto;
-import com.openclassrooms.mddapi.entity.ArticleEntity;
-import com.openclassrooms.mddapi.entity.ThemeEntity;
-import com.openclassrooms.mddapi.entity.UserEntity;
+import com.openclassrooms.mddapi.dto.UserThemeDto;
+import com.openclassrooms.mddapi.entity.*;
 import com.openclassrooms.mddapi.mapper.ArticleMapper;
-import com.openclassrooms.mddapi.repository.ArticleRepository;
-import com.openclassrooms.mddapi.repository.ThemeRepository;
-import com.openclassrooms.mddapi.repository.UserRepository;
+import com.openclassrooms.mddapi.repository.*;
 import jakarta.persistence.EntityNotFoundException;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -18,17 +17,23 @@ import java.util.List;
 public class ArticleService {
 
     private final ArticleRepository articleRepository;
+    private final AbonnementRepository  abonnementRepository;
+    private final CommentaireRepository  commentaireRepository;
     private final ThemeRepository themeRepository;
     private final UserRepository userRepository;
     private final ArticleMapper articleMapper;
 
     public ArticleService(
             ArticleRepository articleRepository,
+            AbonnementRepository abonnementRepository,
+            CommentaireRepository commentaireRepository,
             ThemeRepository themeRepository,
             UserRepository userRepository,
             ArticleMapper articleMapper
     ) {
         this.articleRepository = articleRepository;
+        this.abonnementRepository = abonnementRepository;
+        this.commentaireRepository = commentaireRepository;
         this.themeRepository = themeRepository;
         this.userRepository = userRepository;
         this.articleMapper = articleMapper;
@@ -51,9 +56,49 @@ public class ArticleService {
         return articleRepository.save(article);
     }
 
-    public List<ArticleDto> getAllArticles() {
-        return articleRepository.findAll().stream()
+    public List<ArticleDto> getAllArticles(Long userId) {
+        UserEntity user = userRepository.findById(userId)
+                .orElseThrow(() -> new EntityNotFoundException("Utilisateur introuvable"));
+
+        // Récupère les abonnements
+        List<Long> themeIds = abonnementRepository.findByUser(user).stream()
+                .map(abonnement -> {
+                    ThemeEntity theme = abonnement.getTheme();
+                    return theme.getIdTheme();
+                })
+                .toList();
+
+        if (themeIds.isEmpty()) {
+            return List.of();
+        }
+
+        return articleRepository
+                .findByTheme_IdThemeInOrderByDateDesc(themeIds)
+                .stream()
                 .map(articleMapper::toDto)
                 .toList();
+    }
+
+    public ArticleDto getArticleById(Long id) {
+        ArticleEntity article = articleRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException("Article introuvable"));
+
+        // récupère les commentaires liés à l'article, triés par date
+        List<CommentaireEntity> commentaires = commentaireRepository
+                .findByArticle_IdArticleOrderByDateAsc(id);
+
+        // mappe l'article
+        ArticleDto dto = articleMapper.toDto(article);
+
+// mappe les commentaires vers le DTO
+        dto.setCommentaires(commentaires.stream().map(c -> {
+            CommentaireDto cdto = new CommentaireDto();
+            cdto.setIdCommentaire(c.getIdCommentaire());
+            cdto.setMessage(c.getMessage());
+            cdto.setDate(c.getDate());
+            return cdto;
+        }).toList());
+
+        return dto;
     }
 }

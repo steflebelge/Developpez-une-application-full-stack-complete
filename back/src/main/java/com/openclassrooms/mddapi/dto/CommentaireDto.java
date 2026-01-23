@@ -13,7 +13,7 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 public class CommentaireDto {
     private long idCommentaire;
-    private long idArticle;   // nouvelle propriété
+    private long idArticle;
     @NotBlank
     private String message;
     @NotNull

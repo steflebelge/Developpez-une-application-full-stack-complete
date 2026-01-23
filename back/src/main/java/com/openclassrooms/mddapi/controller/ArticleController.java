@@ -1,5 +1,6 @@
 package com.openclassrooms.mddapi.controller;
 
+import com.openclassrooms.mddapi.dto.AllThemeDto;
 import com.openclassrooms.mddapi.dto.ArticleDto;
 import com.openclassrooms.mddapi.dto.CreateArticleDto;
 import com.openclassrooms.mddapi.service.ArticleService;
@@ -32,7 +33,14 @@ public class ArticleController {
     }
 
     @GetMapping("/getAll")
-    public List<ArticleDto> getAll() {
-        return articleService.getAllArticles();
+    public List<ArticleDto> getAll(Authentication authentication) {
+        Long userId = (Long) authentication.getPrincipal();
+        return articleService.getAllArticles(userId);
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<ArticleDto> getArticleById(@PathVariable Long id) {
+        ArticleDto article = articleService.getArticleById(id);
+        return ResponseEntity.ok(article);
     }
 }
