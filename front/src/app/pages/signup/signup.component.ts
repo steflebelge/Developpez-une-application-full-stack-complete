@@ -17,7 +17,6 @@ export class SignupComponent implements OnInit {
 
   constructor(
     private fb: FormBuilder,
-    private location: Location,
     private apiService: ApiService,
     private router: Router
   ) {}
@@ -31,7 +30,7 @@ export class SignupComponent implements OnInit {
   }
 
   goBack(): void {
-    this.location.back();
+    this.router.navigate(['/']);
   }
 
   onSubmit(): void {
@@ -41,7 +40,7 @@ export class SignupComponent implements OnInit {
 
     this.apiService.post('auth/signup', this.signupForm.value).subscribe({
       next: () => this.router.navigate(['/pub/login']),
-      error: () => this.error = 'Erreur lors de l’inscription'
+      error: (err) => this.error = err.error?.message || 'Erreur lors de l’inscription'
     });
   }
 }

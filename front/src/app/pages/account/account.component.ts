@@ -16,6 +16,7 @@ export class AccountComponent implements OnInit {
   editForm: FormGroup;
   submitted = false;
   error: string | null = null;
+  success: string | null = null;
   themes: Theme[] = [];
   private subscription!: Subscription;
 
@@ -27,7 +28,7 @@ export class AccountComponent implements OnInit {
     this.editForm = this.fb.group({
       name: ['', [Validators.required, Validators.minLength(3)]],
       email: ['', [Validators.required, Validators.email]],
-      password: ['', [Validators.minLength(6)]],
+      password: ['', [Validators.minLength(8)]],
     });
   }
 
@@ -40,6 +41,10 @@ export class AccountComponent implements OnInit {
       this.loadAbonnements();
     });
 
+    this.loadInfosUser();
+  }
+
+  loadInfosUser(): void {
     //récupérer les infos utilisateur
     this.apiService.get<User>('auth/me').subscribe({
       next: (res) => {
@@ -52,10 +57,12 @@ export class AccountComponent implements OnInit {
           });
         }
       },
-      error: () => this.error = 'Erreur lors du login'
+      error: (err) => {
+        this.error = err.error?.message || 'Erreur lors du login';
+        this.success = "";
+      }
     });
   }
-
   ngOnDestroy(): void {
     this.subscription.unsubscribe();
   }
@@ -64,7 +71,7 @@ export class AccountComponent implements OnInit {
     //récupérer les thèmes utilisateurs
     this.apiService.get<Theme[]>('abonnement/get').subscribe({
       next: (res) => this.themes = res,
-      error: () => this.error = 'Erreur lors du login'
+      error: (err) => this.error = err.error?.message || 'Erreur lors du login'
     });
   }
 
@@ -77,10 +84,13 @@ export class AccountComponent implements OnInit {
     this.apiService.put('user/edit', payload).subscribe({
       next: () => {
         // actualiser la page
-        this.router.navigate(['/app/account']);
+        this.loadAbonnements();
+        this.success = "Profil mis a jour";
+        this.error = "";
       },
       error: (err) => {
         this.error = err.error?.message || 'Erreur lors de la mise à jour';
+        this.success = "";
       }
     });
   }

@@ -1,34 +1,101 @@
 @use "styles/variables" as vars;
 
-div#article{
+.back-btn {
+  position: absolute;
+  top: 5rem;
+  left: 5rem;
+  border: none;
+  background-color: white;
 
+  &:hover{
+    cursor: pointer;
+  }
 }
 
-div#commentaires{
+div#content {
+  width: 75%;
+  margin: auto;
+  margin-top: 15px;
 
-  form{
-    display: flex;
-    justify-content: center;
-    gap: 25px;
-
-    textarea{
-      border-radius: vars.$borderRadius;
-      width: 50%;
+  div#article {
+    h3{
+      font-weight: bold;
     }
-    button{
-      border: none;
-      background: none;
-      cursor: pointer;
-      height: fit-content;
-      width: fit-content;
-      margin: auto 0;
 
-      mat-icon{
-        color: vars.$primary-color;
-        transform: rotate(-45deg);
-        font-size: 30px;
+    p:not(.contenu) {
+      display: flex;
+      justify-content: space-between;
+      width: 60%;
+    }
+
+  }
+
+  hr{
+    margin: 25px 0;
+  }
+
+  div#commentaires {
+
+    div p{
+      padding: 10px;
+      display: flex;
+      justify-content: space-between;
+      width: 75%;
+      margin: auto;
+
+      span{
         padding: 10px;
+        border-radius: vars.$borderRadius;
+        background-color: vars.$cardBackgroundColor;
+        width: 50%;
+        min-height: 50px;
       }
     }
+
+    form {
+      display: flex;
+      justify-content: center;
+      gap: 25px;
+      margin: auto;
+      margin-top: 25px;
+      width: 85%;
+
+      textarea {
+        border-radius: vars.$borderRadius;
+        flex: 1;
+        min-width: 0;
+      }
+
+      button {
+        flex: 0 0 auto;
+        border: none;
+        background: none;
+        cursor: pointer;
+        height: fit-content;
+        width: fit-content;
+        margin: auto 0;
+
+        mat-icon {
+          color: vars.$primary-color;
+          transform: rotate(-45deg);
+          font-size: 30px;
+          padding: 10px;
+        }
+      }
+    }
+  }
+
+  p.error,
+  p.success{
+    text-align: center;
+    margin-top: 25px;
+  }
+
+  p.error{
+    color: red;
+  }
+
+  p.success{
+    color: green;
   }
 }

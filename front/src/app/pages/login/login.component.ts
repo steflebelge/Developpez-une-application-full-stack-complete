@@ -18,7 +18,6 @@ export class LoginComponent implements OnInit {
 
   constructor(
     private fb: FormBuilder,
-    private location: Location,
     private apiService: ApiService,
     private router: Router,
     private authService: AuthService,
@@ -33,7 +32,7 @@ export class LoginComponent implements OnInit {
   }
 
   goBack(): void {
-    this.location.back();
+    this.router.navigate(['/']);
   }
 
   onSubmit(): void {
@@ -45,7 +44,7 @@ export class LoginComponent implements OnInit {
         this.authService.login(res?.token);
         this.router.navigate(['/app/articles']);
       },
-      error: () => this.error = 'Erreur lors du login'
+      error: (err) => this.error = err.error?.message || 'Erreur lors du login'
     });
   }
 }

@@ -1,9 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {Article} from "../../models/article.model";
-import {ActivatedRoute, Router} from "@angular/router";
+import {ActivatedRoute} from "@angular/router";
 import {ApiService} from "../../services/api.service";
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
-import {Commentaire} from "../../models/commentaire.model";
+import {Location} from "@angular/common";
 
 @Component({
   selector: 'app-article-details',
@@ -13,6 +13,7 @@ import {Commentaire} from "../../models/commentaire.model";
 export class ArticleDetailsComponent implements OnInit {
   idArticle!: number;
   form!: FormGroup;
+  editForm: FormGroup;
   error: string = "";
   success: string = "";
   newComment: string = "";
@@ -20,22 +21,33 @@ export class ArticleDetailsComponent implements OnInit {
 
   constructor(
     private fb: FormBuilder,
-    private router: Router,
     private route: ActivatedRoute,
+    private location: Location,
     private apiService: ApiService,
-    ) { }
+  ) {
+
+    this.editForm = this.fb.group({
+      content: [
+        '',
+        [
+          Validators.required,
+          Validators.minLength(1),
+        ]
+      ]
+    });
+  }
 
 
   ngOnInit(): void {
 
-      this.idArticle = Number(this.route.snapshot.paramMap.get('idArticle'));
+    this.idArticle = Number(this.route.snapshot.paramMap.get('idArticle'));
 
-      if(!this.idArticle){
-        this.error = "Aucun article correspondant trouvé."
-      } else {
-        //chargement de l'Article
-        this.loadArticle();
-      }
+    if (!this.idArticle) {
+      this.error = "Aucun article correspondant trouvé."
+    } else {
+      //chargement de l'Article
+      this.loadArticle();
+    }
   }
 
   loadArticle(): void {
@@ -49,29 +61,34 @@ export class ArticleDetailsComponent implements OnInit {
         });
       },
       error: (err) => {
-        this.error = 'Erreur lors de la récupération des articles';
+        this.error = err.error?.message || 'Erreur lors de la récupération des articles';
       }
     });
   }
 
   submit(): void {
-    console.log(this.newComment);
-
     if (this.form.invalid) {
       this.form.markAllAsTouched();
+      this.error = 'Le contenu est trop court (min 1 caractère).';
+      this.success = "";
       return;
     }
 
     const payload = this.form.value;
-    this.apiService.post('commentaires/', payload).subscribe({
+    this.apiService.post('commentaires/create', payload).subscribe({
       next: (value) => {
-        console.log("commentaire créée : ", value)
         this.success = 'Commentaire ajouté !';
+        this.error = '';
         this.form.reset();
+        this.loadArticle();
       },
       error: (err) => {
         this.error = err.error?.message || 'Erreur lors de la création du post';
       }
     });
+  }
+
+  goBack(): void {
+    this.location.back();
   }
 }

@@ -31,7 +31,7 @@ export class ArticleNewComponent implements OnInit {
     //récupérer les thèmes
     this.apiService.get<Theme[]>('themes/getAll').subscribe({
       next: (res) => this.themes = res,
-      error: () => this.error = 'Erreur lors de la récupération des themes'
+      error: (err) => this.error = err.error?.message || 'Erreur lors de la récupération des themes',
     });
   }
 
@@ -44,7 +44,7 @@ export class ArticleNewComponent implements OnInit {
     const payload = this.form.value;
     this.apiService.post('articles/create', payload).subscribe({
       next: () => {
-        this.success = 'Post créé !';
+        this.success = 'Article créé !';
         this.form.reset();
       },
       error: (err) => {

@@ -1,4 +1,8 @@
-<div *ngIf="article">
+<button class="back-btn" type="button" (click)="goBack()">
+  <mat-icon>arrow_back</mat-icon>
+</button>
+
+<div id="content" *ngIf="article">
   <div id="article">
     <h3>{{ article.titre }}</h3>
     <p>{{ article.date | date:'dd MMM yyyy à HH:mm' }} <span>{{ article.username }}</span>
@@ -9,22 +13,21 @@
   <hr>
 
   <div id="commentaires">
+    <p>Commentaires</p>
     <div *ngFor="let commentaire of article?.commentaires">
-      <p>{{ commentaire.message }}</p>
+      <p>{{commentaire.username}} <span>{{ commentaire.message }}</span></p>
     </div>
 
     <form [formGroup]="form" (ngSubmit)="submit()">
       <!-- Contenu -->
       <textarea placeholder="Contenu du commentaire" id="content" formControlName="content" rows="5"></textarea>
       <button><mat-icon>send</mat-icon></button>
-      <div class="error" *ngIf="form.get('content')?.touched && form.get('content')?.invalid">
-        Contenu requis (min 1 caractères)
-      </div>
     </form>
   </div>
+
+  <!-- Erreur backend -->
+  <p class="error" *ngIf="error">{{ error }}</p>
+  <!-- succès backend -->
+  <p class="success" *ngIf="success">{{ success }}</p>
 </div>
 
-<!-- Erreur backend -->
-<p class="error" *ngIf="error">{{ error }}</p>
-<!-- succès backend -->
-<p class="success" *ngIf="success">{{ success }}</p>

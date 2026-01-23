@@ -31,7 +31,7 @@ export class ArticlesComponent implements OnInit {
     this.apiService.get<Article[]>('articles/getAll').subscribe({
       next: (res) => this.articles = res,
       error: (err) => {
-          this.error = 'Erreur lors de la récupération des articles';
+        this.error = err.error?.message || 'Erreur lors de la récupération des articles';
       }
     });
   }
