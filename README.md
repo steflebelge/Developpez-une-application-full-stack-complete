@@ -1,31 +1,120 @@
-# P6-Full-Stack-reseau-dev
+# Projet Fullstack – Front Angular / Back Spring Boot
 
-## Front
+Ce dépôt contient une application fullstack composée de :
+- un frontend Angular (dossier `front`)
+- un backend Spring Boot (dossier `back`)
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 14.1.3.
+---
 
-Don't forget to install your node_modules before starting (`npm install`).
+## Structure du projet
 
-### Development server
+.
+├── front/Application Angular  
+└── back/API Spring Boot
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+---
 
-### Build
+## Frontend (Angular)
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+### Prérequis
 
-### Where to start
+- Node.js >= 16
+- npm >= 8
+- Angular CLI 14
+- Navigateur web récent
 
-As you may have seen if you already started the app, a simple home page containing a logo, a title and a button is available. If you take a look at its code (in the `home.component.html`) you will see that an external UI library is already configured in the project.
+Vérification :
+node -v  
+npm -v  
+ng version
 
-This library is `@angular/material`, it's one of the most famous in the angular ecosystem. As you can see on their docs (https://material.angular.io/), it contains a lot of highly customizable components that will help you design your interfaces quickly.
+---
 
-Note: I recommend to use material however it's not mandatory, if you prefer you can get rid of it.
+### Installation et configuration
 
-Good luck!
+Se placer dans le dossier `front` :
 
+cd front
 
-Installation BACKEND : 
+Supprimer les dépendances existantes et installer :
 
-initBdd
-psql -h localhost -U myuser -d projet6 -f src/main/resources/initBdd.sql 
+rm -r node_modules/  
+npm install
+
+Aucune configuration spécifique n’est requise par défaut.  
+L'URL de l’API peut être définit dans `src/app/services/api.service.ts`.
+
+---
+
+### Lancement
+
+npm run start
+
+Application accessible par défaut à l’adresse :
+http://localhost:4200
+
+---
+
+## Backend (Spring Boot)
+
+### Prérequis
+
+- Java 17
+- Maven 3.9 ou supérieur
+- PostgreSQL 13 ou supérieur
+
+Vérification :
+java -version  
+mvn -version
+
+---
+
+### Installation et configuration
+
+Se placer dans le dossier `back` :
+
+cd back
+
+Configurer la base de données PostgreSQL dans `application.properties` ou `application.yml`.
+
+Exemple :
+
+spring.datasource.url=jdbc:postgresql://localhost:5432/mdd  
+spring.datasource.username=postgres  
+spring.datasource.password=postgres
+
+Un script d'initialisation de la base de données est disponible dans `src/main/resources/initBdd.sql `
+
+---
+
+### Lancement
+
+Compilation et installation:
+
+mvn clean package -U  
+mvn clean install -Dmaven.test.skip=true
+
+Démarrage de l’application :
+
+mvn spring-boot:run
+
+API accessible par défaut à l’adresse :
+http://localhost:8080
+
+---
+
+## Technologies utilisées
+
+Frontend :
+- Angular 14
+- Angular Material
+- RxJS
+
+Backend :
+- Spring Boot 3
+- Spring Security
+- Spring Data JPA
+- PostgreSQL
+- JWT
+- MapStruct
+- Lombok
