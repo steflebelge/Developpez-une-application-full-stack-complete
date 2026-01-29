@@ -20,10 +20,50 @@
     <button
       routerLinkActive="active"
       [routerLinkActiveOptions]="{ exact: false }"
-      routerLink="/app/account">  <mat-icon>person</mat-icon></button>
+      routerLink="/app/account">
+      <mat-icon>person</mat-icon>
+    </button>
   </div>
 </header>
 
-<header class="responsiveHeader">
-  <p>respHead</p>
+<header class="responsiveHeader" *ngIf="auth.isAuthenticated()">
+  <!-- Logo -->
+  <div class="logo">
+    <img src="/assets/logo_p6.png" alt="logo"/>
+  </div>
+
+  <button mat-icon-button (click)="toggleNavBar()">
+    <mat-icon>menu</mat-icon>
+  </button>
+
+  <div [className]="navBarClass" (click)="toggleNavBar()"></div>
+  <div id="responsiveNavBar" [className]="navBarClass">
+    <button mat-icon-button (click)="toggleNavBar()">
+      <mat-icon>close</mat-icon>
+    </button>
+
+    <!-- Navigation (uniquement connecté) -->
+    <nav *ngIf="auth.isAuthenticated()" class="nav">
+      <button (click)="logout();toggleNavBar()">Se déconnecter</button>
+      <a (click)="toggleNavBar()"
+         routerLink="/app/articles"
+         routerLinkActive="active"
+         [routerLinkActiveOptions]="{ exact: false }">Articles</a>
+      <a (click)="toggleNavBar()"
+         routerLink="/app/themes"
+         routerLinkActive="active"
+         [routerLinkActiveOptions]="{ exact: false }">Thèmes</a>
+    </nav>
+
+    <!-- Compte (uniquement connecté) -->
+    <div *ngIf="auth.isAuthenticated()" class="account">
+      <button
+        (click)="toggleNavBar()"
+        routerLinkActive="active"
+        [routerLinkActiveOptions]="{ exact: false }"
+        routerLink="/app/account">
+        <mat-icon>person</mat-icon>
+      </button>
+    </div>
+  </div>
 </header>

@@ -108,11 +108,15 @@ div#content {
 }
 @media (max-width: 750px) {
   .back-btn{
-    top: 1rem !important;
+    top: 10vh !important;
   }
 
 }
 @media (max-width: 500px) {
+  .back-btn{
+    left: 0 !important;
+  }
+
   div#content{
     width: 80%;
 

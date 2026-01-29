@@ -76,12 +76,17 @@ div.content{
 //Responsive
 @media (max-width: 750px) {
   .back-btn{
-    top: 1rem !important;
+    top: 10vh !important;
     left: 1rem !important;
   }
 
   div.content form {
     width: 70%;
     margin-top: 1rem;
+  }
+}
+@media (max-width: 500px) {
+  .back-btn{
+    left: 0 !important;
   }
 }

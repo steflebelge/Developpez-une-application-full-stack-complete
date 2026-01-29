@@ -8,6 +8,7 @@ import {Router} from "@angular/router";
   styleUrls: ['./header.component.scss']
 })
 export class HeaderComponent implements OnInit {
+  protected navBarClass: string = "hidden";
 
   constructor(public auth: AuthService, private router: Router) {}
 
@@ -19,4 +20,7 @@ export class HeaderComponent implements OnInit {
     this.router.navigate(['/pub/login']);
   }
 
+  toggleNavBar() {
+    this.navBarClass = this.navBarClass === "hidden" ? "visible" : "hidden";
+  }
 }
