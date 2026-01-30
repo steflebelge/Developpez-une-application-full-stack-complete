@@ -2,10 +2,8 @@ package com.openclassrooms.mddapi.controller;
 
 import com.openclassrooms.mddapi.dto.CommentaireDto;
 import com.openclassrooms.mddapi.dto.CreateCommentaireDto;
-import com.openclassrooms.mddapi.entity.CommentaireEntity;
 import com.openclassrooms.mddapi.service.CommentaireService;
 import jakarta.validation.Valid;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.PostMapping;

@@ -9,8 +9,8 @@ import java.util.List;
 
 @Service
 public class ThemeService {
-    private ThemeRepository themeRepository;
-    private AbonnementRepository abonnementRepository;
+    private final ThemeRepository themeRepository;
+    private final AbonnementRepository abonnementRepository;
 
     public ThemeService(ThemeRepository themeRepository,
                         AbonnementRepository abonnementRepository) {
@@ -18,6 +18,7 @@ public class ThemeService {
         this.abonnementRepository = abonnementRepository;
     }
 
+    //recuperation de la liste des themes avec infos de si l'utilisateur est abonné ou non
     public List<AllThemeDto> getAllThemes(Long userId) {
         return themeRepository.findAll().stream()
                 .map(theme -> {

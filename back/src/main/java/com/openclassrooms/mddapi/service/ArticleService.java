@@ -3,12 +3,13 @@ package com.openclassrooms.mddapi.service;
 import com.openclassrooms.mddapi.dto.ArticleDto;
 import com.openclassrooms.mddapi.dto.CommentaireDto;
 import com.openclassrooms.mddapi.dto.CreateArticleDto;
-import com.openclassrooms.mddapi.dto.UserThemeDto;
-import com.openclassrooms.mddapi.entity.*;
+import com.openclassrooms.mddapi.entity.ArticleEntity;
+import com.openclassrooms.mddapi.entity.CommentaireEntity;
+import com.openclassrooms.mddapi.entity.ThemeEntity;
+import com.openclassrooms.mddapi.entity.UserEntity;
 import com.openclassrooms.mddapi.mapper.ArticleMapper;
 import com.openclassrooms.mddapi.repository.*;
 import jakarta.persistence.EntityNotFoundException;
-import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -17,8 +18,8 @@ import java.util.List;
 public class ArticleService {
 
     private final ArticleRepository articleRepository;
-    private final AbonnementRepository  abonnementRepository;
-    private final CommentaireRepository  commentaireRepository;
+    private final AbonnementRepository abonnementRepository;
+    private final CommentaireRepository commentaireRepository;
     private final ThemeRepository themeRepository;
     private final UserRepository userRepository;
     private final ArticleMapper articleMapper;
@@ -39,23 +40,25 @@ public class ArticleService {
         this.articleMapper = articleMapper;
     }
 
-    public ArticleEntity createArticle(Long userId, CreateArticleDto dto) {
+    //creation d'un nouvel article
+    public void createArticle(Long userId, CreateArticleDto dto) {
 
+        //recuperation de l'utilisateur et du theme lié via leur id
         UserEntity user = userRepository.findById(userId)
                 .orElseThrow(() -> new EntityNotFoundException("Utilisateur introuvable"));
-
         ThemeEntity theme = themeRepository.findById(dto.getThemeId())
                 .orElseThrow(() -> new EntityNotFoundException("Thème introuvable"));
 
+        //creation et sauvegarde
         ArticleEntity article = new ArticleEntity();
         article.setUser(user);
         article.setTheme(theme);
         article.setTitre(dto.getTitle());
         article.setContenu(dto.getContent());
-
-        return articleRepository.save(article);
+        articleRepository.save(article);
     }
 
+    //recuperation des articles correpondants aux theme d'un utilisateur
     public List<ArticleDto> getAllArticles(Long userId) {
         UserEntity user = userRepository.findById(userId)
                 .orElseThrow(() -> new EntityNotFoundException("Utilisateur introuvable"));
@@ -79,6 +82,7 @@ public class ArticleService {
                 .toList();
     }
 
+    //recuperation d'un article spécifique avec commentaires liés
     public ArticleDto getArticleById(Long id) {
         ArticleEntity article = articleRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("Article introuvable"));
@@ -100,6 +104,7 @@ public class ArticleService {
             return cdto;
         }).toList());
 
+        //retourne l'article
         return dto;
     }
 }

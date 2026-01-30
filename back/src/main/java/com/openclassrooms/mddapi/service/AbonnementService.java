@@ -31,6 +31,8 @@ public class AbonnementService {
         this.abonnementMapper = abonnementMapper;
     }
 
+
+    //recuperation des themes de l'utilisateur
     public UserThemeDto[] getThemesOfCurrentUser(Long userId) {
         UserEntity user = userRepository.findById(userId)
                 .orElseThrow(() -> new EntityNotFoundException("Utilisateur introuvable"));
@@ -48,9 +50,8 @@ public class AbonnementService {
                 .toArray(UserThemeDto[]::new);
     }
 
+    //suppression d'un abonnement
     public boolean removeThemeFromCurrentUser(Long idTheme, Long userId) {
-        UserEntity user = userRepository.findById(userId)
-                .orElseThrow(() -> new EntityNotFoundException("Utilisateur introuvable"));
 
         Optional<AbonnementEntity> abonnementOpt = abonnementRepository.findByUser_idUserAndTheme_idTheme(userId, idTheme);
         if (abonnementOpt.isPresent()) {
@@ -60,6 +61,7 @@ public class AbonnementService {
         return false;
     }
 
+    //ajout d'un abonnement
     public AbonnementDto addThemeFromCurrentUser(Long idTheme, Long userId) {
 
         if (abonnementRepository.existsByUser_idUserAndTheme_idTheme(userId, idTheme)) {

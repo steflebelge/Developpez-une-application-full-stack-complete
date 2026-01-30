@@ -7,14 +7,11 @@ import com.openclassrooms.mddapi.dto.UserDto;
 import com.openclassrooms.mddapi.entity.UserEntity;
 import com.openclassrooms.mddapi.mapper.UserMapper;
 import com.openclassrooms.mddapi.service.AuthService;
-import io.jsonwebtoken.Jwt;
 import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
@@ -56,13 +53,4 @@ public class AuthController {
         Long userId = (Long) authentication.getPrincipal();
         return authService.getCurrentUser(userId);
     }
-
-    @GetMapping("/checkToken")
-    public ResponseEntity<Map<String, Object>>  checkToken() {
-        Map<String, Object> response = new HashMap<>();
-        response.put("valid", true);
-        return ResponseEntity.ok(response);
-
-    }
-
 }

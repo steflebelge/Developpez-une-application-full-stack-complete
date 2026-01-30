@@ -19,7 +19,7 @@ import java.time.LocalDateTime;
 public class CommentaireService {
     private final CommentaireRepository commentaireRepository;
     private final ArticleRepository articleRepository;
-    private  final UserRepository userRepository;
+    private final UserRepository userRepository;
     private final CommentaireMapper commentaireMapper;
 
     public CommentaireService(
@@ -32,18 +32,23 @@ public class CommentaireService {
         this.commentaireMapper = commentaireMapper;
     }
 
-    public CommentaireDto newCommentaire(Long userId, @Valid CreateCommentaireDto dto) {
+    //ajout d'un commentaire
+    public CommentaireDto newCommentaire(Long userId, CreateCommentaireDto dto) {
+        //recuperation de l'utilisateur a partir de son id
         UserEntity user = userRepository.findById(userId)
                 .orElseThrow(() -> new EntityNotFoundException("Utilisateur introuvable"));
+        //ercuperation de l'aricle a partir de son id
         ArticleEntity article = articleRepository.findById(dto.getIdArticle())
                 .orElseThrow(() -> new EntityNotFoundException("Article introuvable"));
 
-        CommentaireEntity  commentaireEntity = new CommentaireEntity();
+        //creation du commentaire
+        CommentaireEntity commentaireEntity = new CommentaireEntity();
         commentaireEntity.setUser(user);
         commentaireEntity.setArticle(article);
         commentaireEntity.setMessage(dto.getContent());
         commentaireEntity.setDate(LocalDateTime.now());
 
+        //enregistrement en base et retour du nouveau commentaire
         return commentaireMapper.toDto(commentaireRepository.save(commentaireEntity));
     }
 }

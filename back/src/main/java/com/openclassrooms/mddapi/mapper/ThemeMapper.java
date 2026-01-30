@@ -7,6 +7,7 @@ import org.mapstruct.Mapper;
 @Mapper(componentModel = "spring")
 public interface ThemeMapper {
     UserThemeDto toDto(ThemeEntity entity);
+
     ThemeEntity toEntity(UserThemeDto dto);
 }
 

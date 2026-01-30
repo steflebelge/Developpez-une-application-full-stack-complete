@@ -44,11 +44,14 @@ public class UserService implements UserDetailsService {
         // Vérifications d'unicité (email / name)
         userRepository.findByEmail(dto.getEmail())
                 .filter(u -> !u.getIdUser().equals(userId))
-                .ifPresent(u -> { throw new ResponseStatusException(HttpStatus.CONFLICT, "Email déjà utilisé"); });
-
+                .ifPresent(u -> {
+                    throw new ResponseStatusException(HttpStatus.CONFLICT, "Email déjà utilisé");
+                });
         userRepository.findByName(dto.getName())
                 .filter(u -> !u.getIdUser().equals(userId))
-                .ifPresent(u -> { throw new ResponseStatusException(HttpStatus.CONFLICT, "Nom déjà utilisé"); });
+                .ifPresent(u -> {
+                    throw new ResponseStatusException(HttpStatus.CONFLICT, "Nom déjà utilisé");
+                });
 
         // Mise à jour
         user.setName(dto.getName());
@@ -56,7 +59,7 @@ public class UserService implements UserDetailsService {
 
         String password = dto.getPassword();
         if (password != null && !password.isBlank()) {
-            // Validation complexe
+            // Validation complexe duy mot de passe
             if (password.length() < 8
                     || !password.matches(".*[a-z].*")
                     || !password.matches(".*[A-Z].*")
@@ -74,6 +77,7 @@ public class UserService implements UserDetailsService {
             user.setPassword(passwordEncoder.encode(password));
         }
 
+        //enregistrement des nouvelles infos utilisateur
         userRepository.save(user);
         return userMapper.toDto(user);
     }

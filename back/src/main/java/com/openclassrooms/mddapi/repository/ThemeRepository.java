@@ -9,7 +9,5 @@ import java.util.List;
 @Repository
 public interface ThemeRepository extends JpaRepository<ThemeEntity, Long> {
 
-    boolean existsByName(String name);
-
     List<ThemeEntity> findAll();
 }

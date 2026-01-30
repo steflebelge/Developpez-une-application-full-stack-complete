@@ -1,6 +1,9 @@
 package com.openclassrooms.mddapi.service;
 
-import io.jsonwebtoken.*;
+import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.JwtException;
+import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.security.Keys;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -19,8 +22,10 @@ public class JwtService {
         return Keys.hmacShaKeyFor(jwtSecret.getBytes());
     }
 
+    //génération du token
     public String generateToken(Long userId) {
         long expirationMs = 1000 * 60 * 60; // 1h
+//        long expirationMs = 10000; // 10sec
         return Jwts.builder()
                 .setClaims(Map.of("userId", userId))
                 .setIssuedAt(new Date())
@@ -29,6 +34,7 @@ public class JwtService {
                 .compact();
     }
 
+    //validation du token
     public boolean validateToken(String token) {
         try {
             Jwts.parserBuilder()
@@ -41,6 +47,7 @@ public class JwtService {
         }
     }
 
+    //recuperation des informations dans le token
     public String getClaim(String token, String claimName) {
         Claims claims = Jwts.parserBuilder()
                 .setSigningKey(getSigningKey())

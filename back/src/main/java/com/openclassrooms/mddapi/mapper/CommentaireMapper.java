@@ -13,6 +13,5 @@ public interface CommentaireMapper {
 
     @Mapping(target = "idCommentaire", ignore = true)
     @Mapping(target = "article", ignore = true)
-        // sera injecté dans le service
     CommentaireEntity toEntity(CommentaireDto dto);
 }

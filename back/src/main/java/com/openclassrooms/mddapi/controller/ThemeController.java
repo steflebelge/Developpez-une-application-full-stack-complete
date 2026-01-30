@@ -1,7 +1,6 @@
 package com.openclassrooms.mddapi.controller;
 
 import com.openclassrooms.mddapi.dto.AllThemeDto;
-import com.openclassrooms.mddapi.dto.UserThemeDto;
 import com.openclassrooms.mddapi.service.ThemeService;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.GetMapping;

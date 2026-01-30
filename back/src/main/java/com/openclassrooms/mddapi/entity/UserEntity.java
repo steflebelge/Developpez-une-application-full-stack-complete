@@ -1,7 +1,7 @@
 package com.openclassrooms.mddapi.entity;
 
-import lombok.*;
 import jakarta.persistence.*;
+import lombok.*;
 
 @Getter
 @Setter

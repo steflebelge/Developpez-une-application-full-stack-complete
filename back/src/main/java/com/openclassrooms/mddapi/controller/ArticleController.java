@@ -1,6 +1,5 @@
 package com.openclassrooms.mddapi.controller;
 
-import com.openclassrooms.mddapi.dto.AllThemeDto;
 import com.openclassrooms.mddapi.dto.ArticleDto;
 import com.openclassrooms.mddapi.dto.CreateArticleDto;
 import com.openclassrooms.mddapi.service.ArticleService;

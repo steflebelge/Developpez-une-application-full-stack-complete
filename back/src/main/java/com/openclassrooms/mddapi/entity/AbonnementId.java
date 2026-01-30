@@ -1,11 +1,9 @@
 package com.openclassrooms.mddapi.entity;
 
-import lombok.AllArgsConstructor;
+import jakarta.persistence.Embeddable;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 
-import jakarta.persistence.Embeddable;
 import java.io.Serializable;
 import java.util.Objects;
 
@@ -17,7 +15,8 @@ public class AbonnementId implements Serializable {
     private Long user;
     private Long theme;
 
-    public AbonnementId() {}
+    public AbonnementId() {
+    }
 
     public AbonnementId(Long user, Long theme) {
         this.user = user;
@@ -28,8 +27,7 @@ public class AbonnementId implements Serializable {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof AbonnementId)) return false;
-        AbonnementId that = (AbonnementId) o;
+        if (!(o instanceof AbonnementId that)) return false;
         return Objects.equals(user, that.user) &&
                 Objects.equals(theme, that.theme);
     }
