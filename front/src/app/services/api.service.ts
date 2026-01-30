@@ -9,7 +9,7 @@ export class ApiService {
   // Subject pour notifier la suppression d'abonnement
   private abonnementRemovedSource = new Subject<number>();
   abonnementRemoved$ = this.abonnementRemovedSource.asObservable();
-
+  // Subject pour notifier l'ajout d'un d'abonnement
   private abonnementAddedSource = new Subject<number>();
   abonnementAdded$ = this.abonnementAddedSource.asObservable();
 
@@ -27,15 +27,7 @@ export class ApiService {
     return this.http.put<T>(`${this.baseUrl}/${endpoint}`, body);
   }
 
-  delete<T>(endpoint: string): Observable<T> {
-    return this.http.delete<T>(`${this.baseUrl}/${endpoint}`);
-  }
-
   notifyAbonnementRemoved(themeId: number) {
     this.abonnementRemovedSource.next(themeId);
-  }
-
-  notifyAbonnementAdded(idTheme: number) {
-    this.abonnementAddedSource.next(idTheme);
   }
 }

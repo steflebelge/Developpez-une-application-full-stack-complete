@@ -16,7 +16,6 @@ export class ArticleDetailsComponent implements OnInit {
   editForm: FormGroup;
   error: string = "";
   success: string = "";
-  newComment: string = "";
   article?: Article;
 
   constructor(
@@ -83,7 +82,7 @@ export class ArticleDetailsComponent implements OnInit {
         this.loadArticle();
       },
       error: (err) => {
-        this.error = err.error?.message || 'Erreur lors de la création du post';
+        this.error = err.error?.message || 'Erreur lors de la création du commentaire';
       }
     });
   }

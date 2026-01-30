@@ -23,7 +23,6 @@ export class AccountComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private apiService: ApiService,
-    private router: Router
   ) {
     this.editForm = this.fb.group({
       name: ['', [Validators.required, Validators.minLength(3)]],
@@ -41,6 +40,7 @@ export class AccountComponent implements OnInit {
       this.loadAbonnements();
     });
 
+    //chargements des infos utilisateur
     this.loadInfosUser();
   }
 
@@ -63,6 +63,7 @@ export class AccountComponent implements OnInit {
       }
     });
   }
+
   ngOnDestroy(): void {
     this.subscription.unsubscribe();
   }

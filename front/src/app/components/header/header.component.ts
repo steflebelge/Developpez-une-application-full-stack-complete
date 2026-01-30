@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {AuthService} from "../../services/auth.service";
 import {Router} from "@angular/router";
 
@@ -7,12 +7,10 @@ import {Router} from "@angular/router";
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.scss']
 })
-export class HeaderComponent implements OnInit {
+export class HeaderComponent {
   protected navBarClass: string = "hidden";
 
-  constructor(public auth: AuthService, private router: Router) {}
-
-  ngOnInit(): void {
+  constructor(public auth: AuthService, private router: Router) {
   }
 
   logout(): void {

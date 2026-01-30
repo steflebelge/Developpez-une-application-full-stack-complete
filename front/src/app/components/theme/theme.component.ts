@@ -1,14 +1,13 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {Theme} from "../../models/theme.model";
 import {ApiService} from "../../services/api.service";
-import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-theme',
   templateUrl: './theme.component.html',
   styleUrls: ['./theme.component.scss']
 })
-export class ThemeComponent implements OnInit {
+export class ThemeComponent {
   @Input() theme!: Theme;
   @Input() unfollowLink: boolean = false;
   error: string | null = null;
@@ -16,9 +15,6 @@ export class ThemeComponent implements OnInit {
   constructor(
     private apiService: ApiService,
   ) {
-  }
-
-  ngOnInit(): void {
   }
 
   unsubscribe(): void {

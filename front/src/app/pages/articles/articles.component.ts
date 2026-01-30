@@ -44,6 +44,7 @@ export class ArticlesComponent implements OnInit {
     this.router.navigate(['/app/articles/new']);
   }
 
+  //tri des articles par date
   toggleSortArticles(){
     this.sorted = this.sorted === "desc" ? "asc" : "desc";
 

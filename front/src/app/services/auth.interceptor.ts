@@ -12,6 +12,7 @@ export class AuthInterceptor implements HttpInterceptor {
   ) {
   }
 
+  //Ajout du token d'identification dans les headers des requetes
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     const token = this.auth.getToken();
     if (token) {
