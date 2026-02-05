@@ -51,6 +51,9 @@
 
 <ul>
   <li *ngFor="let theme of themes">
-    <app-theme [unfollowLink]="true" [theme]="theme"></app-theme>
+    <app-theme
+      [unfollowLink]="true"
+      [theme]="theme">
+    </app-theme>
   </li>
 </ul>

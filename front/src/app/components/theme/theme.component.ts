@@ -18,7 +18,7 @@ export class ThemeComponent {
   }
 
   unsubscribe(): void {
-    this.apiService.get('abonnement/removeAbonnement/' + this.theme.idTheme).subscribe({
+    this.apiService.delete('abonnement/' + this.theme.idTheme).subscribe({
       next: () => {
         this.apiService.notifyAbonnementRemoved(this.theme.idTheme);
       },
@@ -29,7 +29,7 @@ export class ThemeComponent {
   }
 
   subscribe(): void {
-    this.apiService.post('abonnement/addAbonnement/' + this.theme.idTheme, {}).subscribe({
+    this.apiService.post('abonnement/' + this.theme.idTheme, {}).subscribe({
       next: () => {
         this.theme.isUserAbonner = true;
       },

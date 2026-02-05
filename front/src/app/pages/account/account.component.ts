@@ -70,7 +70,7 @@ export class AccountComponent implements OnInit {
 
   loadAbonnements() {
     //récupérer les thèmes utilisateurs
-    this.apiService.get<Theme[]>('abonnement/get').subscribe({
+    this.apiService.get<Theme[]>('abonnement/').subscribe({
       next: (res) => this.themes = res,
       error: (err) => this.error = err.error?.message || 'Erreur lors du login'
     });
