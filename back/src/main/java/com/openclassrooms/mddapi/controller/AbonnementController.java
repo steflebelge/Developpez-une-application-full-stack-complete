@@ -21,13 +21,13 @@ public class AbonnementController {
         this.abonnementService = abonnementService;
     }
 
-    @GetMapping("/get")
+    @GetMapping("/")
     public UserThemeDto[] get(Authentication authentication) {
         Long userId = (Long) authentication.getPrincipal();
         return abonnementService.getThemesOfCurrentUser(userId);
     }
 
-    @GetMapping("/removeAbonnement/{idTheme}")
+    @DeleteMapping("/{idTheme}")
     public ResponseEntity<Map<String, Object>> removeAbonnement(Authentication authentication, @PathVariable Long idTheme) {
         Long userId = (Long) authentication.getPrincipal();
 
@@ -40,7 +40,7 @@ public class AbonnementController {
         return ResponseEntity.ok(response);
     }
 
-    @PostMapping("/addAbonnement/{idTheme}")
+    @PostMapping("/{idTheme}")
     public ResponseEntity<AbonnementDto> addAbonnement(Authentication authentication, @PathVariable Long idTheme) {
         Long userId = (Long) authentication.getPrincipal();
         AbonnementDto dto = abonnementService.addThemeFromCurrentUser(idTheme, userId);

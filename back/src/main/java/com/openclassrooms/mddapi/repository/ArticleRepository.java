@@ -10,7 +10,5 @@ import java.util.Optional;
 @Repository
 public interface ArticleRepository extends JpaRepository<ArticleEntity, Long> {
     List<ArticleEntity> findByTheme_IdThemeInOrderByDateDesc(List<Long> themeIds);
-
     Optional<ArticleEntity> findById(Long id);
-
 }

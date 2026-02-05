@@ -15,6 +15,8 @@ import java.util.List;
 @AllArgsConstructor
 public class ArticleDto {
     private long idArticle;
+    private Long userId;
+    private String username;
 
     @NotNull
     @Size(max = 30)
@@ -26,8 +28,6 @@ public class ArticleDto {
     @NotNull
     private LocalDateTime date;
 
-    private Long userId;
-    private String username;
 
     private Long themeId;
     private String themeName;

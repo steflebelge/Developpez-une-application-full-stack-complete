@@ -12,7 +12,6 @@ import java.util.List;
 
 @Mapper(componentModel = "spring")
 public interface ArticleMapper {
-
     @Mapping(target = "userId", source = "user.idUser")
     @Mapping(target = "username", source = "user.name")
     @Mapping(target = "themeId", source = "theme.idTheme")

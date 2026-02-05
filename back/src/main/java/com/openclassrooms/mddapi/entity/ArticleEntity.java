@@ -15,16 +15,13 @@ import java.time.LocalDateTime;
 @Entity
 @Table(name = "article")
 public class ArticleEntity {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_article")
     private Long idArticle;
-
     @ManyToOne
     @JoinColumn(name = "id_user", nullable = false)
     private UserEntity user;
-
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "theme_id", nullable = false)
     private ThemeEntity theme;

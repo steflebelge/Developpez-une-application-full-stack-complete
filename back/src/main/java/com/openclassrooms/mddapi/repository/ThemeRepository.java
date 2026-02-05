@@ -7,7 +7,8 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public interface ThemeRepository extends JpaRepository<ThemeEntity, Long> {
-
+public interface
+ThemeRepository extends
+        JpaRepository<ThemeEntity, Long> {
     List<ThemeEntity> findAll();
 }
